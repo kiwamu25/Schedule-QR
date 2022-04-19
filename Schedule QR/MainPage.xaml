@@ -21,11 +21,19 @@
         </ResourceDictionary>
     </Page.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid>
+        <Border Background="Orange" Margin="0,5">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Text="Schedule QR"/>
+        </Border>
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -41,28 +49,41 @@
             <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource HeaderStyle}">
                 <TextBlock Text="Title" Style="{StaticResource HeaderTextStyle}"/>
             </Border>
-            <TextBox Grid.Row="0" Grid.Column="1" Text=""/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{x:Bind ViewModel.Calendar.Summary,Mode=TwoWay}"/>
 
             <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource HeaderStyle}">
                 <TextBlock Text="Location" Style="{StaticResource HeaderTextStyle}"/>
             </Border>
-            <TextBox Grid.Row="1" Grid.Column="1" Text=""/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{x:Bind ViewModel.Calendar.Location,Mode=TwoWay}"/>
 
             <Border Grid.Row="2" Grid.Column="0" Style="{StaticResource HeaderStyle}">
                 <TextBlock Text="Description" Style="{StaticResource HeaderTextStyle}"/>
             </Border>
-            <TextBox Grid.Row="2" Grid.Column="1" Text=""/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{x:Bind ViewModel.Calendar.Description,Mode=TwoWay}"/>
 
             <Border Grid.Row="3" Grid.Column="0" Style="{StaticResource HeaderStyle}">
                 <TextBlock Text="Start" Style="{StaticResource HeaderTextStyle}"/>
             </Border>
-            <TimePicker Grid.Row="3" Grid.Column="1"/>
+            <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                <DatePicker SelectedDate="{x:Bind ViewModel.Calendar.Start ,Mode=TwoWay}"/>
+                <TimePicker Margin="5,0" MinuteIncrement="15" SelectedTime="{x:Bind ViewModel.Calendar.StartTime,Mode=TwoWay}"/>
+            </StackPanel>
 
             <Border Grid.Row="4" Grid.Column="0" Style="{StaticResource HeaderStyle}">
                 <TextBlock Text="End" Style="{StaticResource HeaderTextStyle}"/>
             </Border>
-            <TimePicker Grid.Row="4" Grid.Column="1"/>
-            
+            <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                <DatePicker SelectedDate="{x:Bind ViewModel.Calendar.End,Mode=TwoWay}"/>
+                <TimePicker Margin="5,0" MinuteIncrement="15" SelectedTime="{x:Bind ViewModel.Calendar.EndTime ,Mode=TwoWay}"/>
+
+            </StackPanel>
+
+            <Button Grid.Row="10"  Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12" Content="Create"
+                    Click="Button_Create_Click"/>
+        </Grid>
+        <Grid Grid.Row="2" Height="200">
+            <TextBox Visibility="Collapsed" AcceptsReturn="True" Text="{x:Bind ViewModel.Calendar.iCAL ,Mode=OneWay}"/>
+            <Image x:Name="imageview"/>
         </Grid>
     </Grid>
 </Page>

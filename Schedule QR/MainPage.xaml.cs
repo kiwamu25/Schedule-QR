@@ -22,13 +22,23 @@ namespace Schedule_QR
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        MainPageViewModel ViewModel = new MainPageViewModel();
         public MainPage()
         {
             this.InitializeComponent();
         }
+
+        public void Button_Create_Click(object sender, RoutedEventArgs e)
+        {
+           imageview.Source =  ViewModel.Calendar.CreateCalendar();
+        }
     }
 
+    public class MainPageViewModel
+    {
+        public iCalendar Calendar = new iCalendar();
 
+    }
 
 
 
