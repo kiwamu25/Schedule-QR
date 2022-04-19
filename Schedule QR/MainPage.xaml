@@ -1,0 +1,68 @@
+﻿<Page
+    x:Class="Schedule_QR.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Schedule_QR"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <ResourceDictionary>
+            <Style x:Key="HeaderStyle" TargetType="Border">
+                <Setter Property="Background" Value="LightBlue"/>
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="Margin" Value="10,5"/>
+            </Style>
+            <Style x:Key="HeaderTextStyle" TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource HeaderStyle}">
+                <TextBlock Text="Title" Style="{StaticResource HeaderTextStyle}"/>
+            </Border>
+            <TextBox Grid.Row="0" Grid.Column="1" Text=""/>
+
+            <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource HeaderStyle}">
+                <TextBlock Text="Location" Style="{StaticResource HeaderTextStyle}"/>
+            </Border>
+            <TextBox Grid.Row="1" Grid.Column="1" Text=""/>
+
+            <Border Grid.Row="2" Grid.Column="0" Style="{StaticResource HeaderStyle}">
+                <TextBlock Text="Description" Style="{StaticResource HeaderTextStyle}"/>
+            </Border>
+            <TextBox Grid.Row="2" Grid.Column="1" Text=""/>
+
+            <Border Grid.Row="3" Grid.Column="0" Style="{StaticResource HeaderStyle}">
+                <TextBlock Text="Start" Style="{StaticResource HeaderTextStyle}"/>
+            </Border>
+            <TimePicker Grid.Row="3" Grid.Column="1"/>
+
+            <Border Grid.Row="4" Grid.Column="0" Style="{StaticResource HeaderStyle}">
+                <TextBlock Text="End" Style="{StaticResource HeaderTextStyle}"/>
+            </Border>
+            <TimePicker Grid.Row="4" Grid.Column="1"/>
+            
+        </Grid>
+    </Grid>
+</Page>
