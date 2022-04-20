@@ -6,34 +6,37 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    MaxWidth="600">
     <Page.Resources>
         <ResourceDictionary>
             <Style x:Key="HeaderStyle" TargetType="Border">
-                <Setter Property="Background" Value="LightBlue"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Background" Value="SteelBlue"/>
                 <Setter Property="Padding" Value="5"/>
                 <Setter Property="Margin" Value="10,5"/>
             </Style>
             <Style x:Key="HeaderTextStyle" TargetType="TextBlock">
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="Foreground" Value="WhiteSmoke"/>
             </Style>
         </ResourceDictionary>
     </Page.Resources>
-    <Grid>
+    <Grid Background="LightSteelBlue">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        <Border Background="Orange" Margin="0,5">
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Text="Schedule QR"/>
+        <Border Background="DodgerBlue" Margin="0,5">
+            <TextBlock Foreground="WhiteSmoke" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Text="Schedule QR"/>
         </Border>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Padding="10" Visibility="{x:Bind ViewModel.ButtonVisibility ,Mode=OneWay}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -47,43 +50,67 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource HeaderStyle}">
-                <TextBlock Text="Title" Style="{StaticResource HeaderTextStyle}"/>
+                <TextBlock Text="タイトル" Style="{StaticResource HeaderTextStyle}"/>
             </Border>
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{x:Bind ViewModel.Calendar.Summary,Mode=TwoWay}"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="0,10" VerticalAlignment="Center" Text="{x:Bind ViewModel.Calendar.Summary,Mode=TwoWay}"/>
 
             <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource HeaderStyle}">
-                <TextBlock Text="Location" Style="{StaticResource HeaderTextStyle}"/>
+                <TextBlock Text="場所" Style="{StaticResource HeaderTextStyle}"/>
             </Border>
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{x:Bind ViewModel.Calendar.Location,Mode=TwoWay}"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="0,10" VerticalAlignment="Center" Text="{x:Bind ViewModel.Calendar.Location,Mode=TwoWay}"/>
 
             <Border Grid.Row="2" Grid.Column="0" Style="{StaticResource HeaderStyle}">
-                <TextBlock Text="Description" Style="{StaticResource HeaderTextStyle}"/>
+                <TextBlock Text="メモ" Style="{StaticResource HeaderTextStyle}"/>
             </Border>
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{x:Bind ViewModel.Calendar.Description,Mode=TwoWay}"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Margin="0,10" VerticalAlignment="Center" AcceptsReturn="True" Text="{x:Bind ViewModel.Calendar.Description,Mode=TwoWay}"/>
 
             <Border Grid.Row="3" Grid.Column="0" Style="{StaticResource HeaderStyle}">
-                <TextBlock Text="Start" Style="{StaticResource HeaderTextStyle}"/>
+                <TextBlock Text="開始" Style="{StaticResource HeaderTextStyle}"/>
             </Border>
-            <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
-                <DatePicker SelectedDate="{x:Bind ViewModel.Calendar.Start ,Mode=TwoWay}"/>
-                <TimePicker Margin="5,0" MinuteIncrement="15" SelectedTime="{x:Bind ViewModel.Calendar.StartTime,Mode=TwoWay}"/>
-            </StackPanel>
+            <Grid Grid.Row="3" Grid.Column="1" Margin="0,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <DatePicker Grid.Row="0" SelectedDate="{x:Bind ViewModel.Calendar.Start ,Mode=TwoWay}"/>
+                <TimePicker Grid.Row="1" HorizontalAlignment="Right" Margin="0,5" MinuteIncrement="1" SelectedTime="{x:Bind ViewModel.Calendar.StartTime,Mode=TwoWay}"/>
+            </Grid>
 
             <Border Grid.Row="4" Grid.Column="0" Style="{StaticResource HeaderStyle}">
-                <TextBlock Text="End" Style="{StaticResource HeaderTextStyle}"/>
+                <TextBlock Text="終了" Style="{StaticResource HeaderTextStyle}"/>
             </Border>
-            <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
-                <DatePicker SelectedDate="{x:Bind ViewModel.Calendar.End,Mode=TwoWay}"/>
-                <TimePicker Margin="5,0" MinuteIncrement="15" SelectedTime="{x:Bind ViewModel.Calendar.EndTime ,Mode=TwoWay}"/>
+            <Grid Grid.Row="4" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <DatePicker Grid.Row="0" SelectedDate="{x:Bind ViewModel.Calendar.End,Mode=TwoWay}"/>
+                <TimePicker Grid.Row="1" HorizontalAlignment="Right" Margin="0,5" MinuteIncrement="1" SelectedTime="{x:Bind ViewModel.Calendar.EndTime ,Mode=TwoWay}"/>
 
-            </StackPanel>
+            </Grid>
 
-            <Button Grid.Row="10"  Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12" Content="Create"
-                    Click="Button_Create_Click"/>
+            <Button Grid.Row="10"  Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12"
+                    Background="SteelBlue" BorderBrush="Gray" BorderThickness="4" Width="120"
+                     
+                   Click="Button_Create_Click">
+                <Button.Content>
+                    <StackPanel>
+                        <TextBlock Text="&#xE010;" Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="{StaticResource SymbolThemeFontFamily}"/>
+                        <TextBlock Text="QRコード作成" Foreground="WhiteSmoke"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
         </Grid>
-        <Grid Grid.Row="2" Height="200">
-            <TextBox Visibility="Collapsed" AcceptsReturn="True" Text="{x:Bind ViewModel.Calendar.iCAL ,Mode=OneWay}"/>
-            <Image x:Name="imageview"/>
+        <Grid Grid.Row="2" Visibility="{x:Bind ViewModel.ButtonVisibility ,Mode=OneWay,Converter={StaticResource VisibilityNeg}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12"
+                    Background="SteelBlue" BorderBrush="Gray" BorderThickness="4" Foreground="White"
+                    Content="&#xE011;" FontFamily="{StaticResource SymbolThemeFontFamily}"
+                    Click="Button_Up_Click"/>
+            <Image Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="200" x:Name="imageview"/>
         </Grid>
     </Grid>
 </Page>

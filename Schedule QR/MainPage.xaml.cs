@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -31,12 +32,34 @@ namespace Schedule_QR
         public void Button_Create_Click(object sender, RoutedEventArgs e)
         {
            imageview.Source =  ViewModel.Calendar.CreateCalendar();
+            ViewModel.ButtonVisibility = Visibility.Collapsed;
+        }
+
+        private void Button_Up_Click(object sender ,RoutedEventArgs e)
+        {
+            ViewModel.ButtonVisibility = Visibility.Visible;
         }
     }
 
-    public class MainPageViewModel
+    public class MainPageViewModel : INotifyPropertyChanged
     {
         public iCalendar Calendar = new iCalendar();
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
+        private static readonly PropertyChangedEventArgs ButtonVisibilityPropertyChangedEventArgs = new PropertyChangedEventArgs(nameof(ButtonVisibility));
+        private Visibility buttonVisibility = Visibility.Visible;
+        public Visibility ButtonVisibility
+        {
+            get { return this.buttonVisibility; }
+            set
+            {
+                if (this.buttonVisibility == value) { return; }
+                this.buttonVisibility = value;
+                this.PropertyChanged?.Invoke(this, ButtonVisibilityPropertyChangedEventArgs);
+            }
+        }
 
     }
 

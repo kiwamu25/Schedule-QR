@@ -128,11 +128,12 @@ namespace Schedule_QR
 
         public WriteableBitmap CreateCalendar()
         {
+            var descriptions = Description.Replace("\r", "\\n");
             iCAL = "BEGIN:VCALENDAR\r\n"
                     + "VERSION:2.0\r\n"
                     + "PRODID:-//ishigame-machine-technology.net/NONSGML v1.0//EN\r\n"
                     + "BEGIN:VEVENT\r\n"
-                    + $"DESCRIPTION:{Description}\r\n"
+                    + $"DESCRIPTION:{descriptions}\r\n"
                     + "DTSTART;TZID=Asia/Tokyo:" + Start.ToString("yyyyMMdd") + "T" + StartTime.ToString("hhmmss") + "Z\r\n"
                     + "DTEND;TZID=Asia/Tokyo:" + End.ToString("yyyyMMdd") + "T" + EndTime.ToString("hhmmss") + "Z\r\n"
                     + $"SUMMARY:{Summary}\r\n"

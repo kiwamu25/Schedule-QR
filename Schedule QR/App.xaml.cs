@@ -7,6 +7,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -40,6 +41,7 @@ namespace Schedule_QR
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(400, 650));
 
             // ウィンドウに既にコンテンツが表示されている場合は、アプリケーションの初期化を繰り返さずに、
             // ウィンドウがアクティブであることだけを確認してください
